@@ -59,10 +59,17 @@ tst_f90_SOURCES = tst_f90.f90
 if USE_SED
 
 # These test fortran codes will be created using sed.
-F03_TEST_CODES = f03test.F
+F03_TEST_CODES =
 
 # The fortran codes will compile into these tests.
-F03_TESTS = f03test
+F03_TESTS =
+
+if BUILD_V2
+F03_TEST_CODES += f03test.F tst03_f77_v2.F
+F03_TESTS += f03test tst03_f77_v2
+f03test_SOURCES = f03test.F
+tst03_f77_v2_SOURCES = tst03_f77_v2.F
+endif # BUILD_V2
 
 # Note that all these fortran programs are built at compile-time on
 # the user system.
@@ -73,13 +80,17 @@ check_PROGRAMS += $(F03_TESTS)
 TESTS += $(F03_TESTS)
 
 # Each generated test code depends on its source.
-f03test_SOURCES = f03test.F
 
 # Use sed to generate the f03 versions of some test codes.
 f03test.F: ftest.F
 	$(SED) "s|include 'netcdf.inc'|USE netcdf4_f03|" $< > $@.tmp
 	$(SED) "s|test.nc|f03tst_test.nc|" $@.tmp > $@.tmp2
 	$(SED) "s|copy.nc|f03tst_copy.nc|" $@.tmp2 > $@
+
+tst03_f77_v2.F: tst_f77_v2.F
+	$(SED) "s|IMPLICIT NONE|USE netcdf4_f03|" $< > $@.tmp
+	$(SED) "s|include 'netcdf.inc'|implicit none|" $@.tmp > $@.tmp2
+	$(SED) "s|tst_f77_v2.nc|tst03_f77_v2.nc|" $@.tmp2 > $@
 
 endif #USE_SED
 

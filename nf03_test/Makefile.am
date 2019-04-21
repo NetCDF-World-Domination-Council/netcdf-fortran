@@ -43,13 +43,6 @@ test03_write.F util03.F f03lib.c
 nf03_error.o nf03_test.o test03_get.o test03_put.o test03_read.o test03_write.o tst03_f77_v2.o util03.o: \
 module_tests.o
 
-# Did the user build the V2 F77 API? If so, run these tests.
-if BUILD_V2
-check_PROGRAMS += tst03_f77_v2
-tst03_f77_v2_SOURCES = tst03_f77_v2.F
-TESTS += tst03_f77_v2
-endif # BUILD_V2
-
 # If valgrind is present on this machine, this will enable
 # check-valgrind target, which runs all tests with valgrind.
 @VALGRIND_CHECK_RULES@

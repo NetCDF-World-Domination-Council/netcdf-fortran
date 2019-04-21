@@ -7,12 +7,11 @@ C     jvkepner@astro.Princeton.EDU.
 
 C     This program will bail out in the event of a netcdf error.
 
-C     $Id: tst_f77_v2.F,v 1.2 2009/01/25 14:33:44 ed Exp $
+C     Ed Hartnett, 2009
 
       PROGRAM tst_f77_v2
-      use tests      
-      IMPLICIT NONE
-
+      USE netcdf4_f03
+      implicit none
 
       INTEGER n_dim,x_dim,y_dim,z_dim
       PARAMETER(n_dim = 3, x_dim = 20, y_dim = 10, z_dim = 5)
@@ -37,7 +36,7 @@ C     Put something into the array.
       print *, ' *** Testing netCDF v2 api for F77.'
 
 C     Create file.
-      ncid = NCCRE('tst_f77_v2.nc', NCCLOB, errcode)
+      ncid = NCCRE('tst03_f77_v2.nc', NCCLOB, errcode)
 
 C     Create Dimensions.
       x_id = NCDDEF(ncid, 'X', x_dim, errcode)

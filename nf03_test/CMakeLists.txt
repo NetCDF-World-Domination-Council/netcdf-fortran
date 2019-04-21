@@ -27,14 +27,6 @@ LIST(APPEND CLEANFILES tests.mod)
 # need not have m4.
 SET(EXTRA_DIST test03_get.F test03_put.F fills.cdl create_fills.sh run_f77_par_test.sh)
 
-# Did the user build the V2 F77 API? If so, run this test.
-IF(BUILD_V2)
-  LIST(APPEND check_PROGRAMS tst03_f77_v2)
-  LIST(APPEND TESTS tst03_f77_v2)
-  LIST(APPEND CLEANFILES tst_f77_v2.nc)
-  SET(tst03_f77_v2_SOURCES module_tests.F90 tst03_f77_v2.F)
-ENDIF(BUILD_V2)
-
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/fortran ${CMAKE_SOURCE_DIR}/libsrc ${CMAKE_SOURCE_DIR}
   ${CMAKE_CPP_FLAGS} ${NETCDF_C_INCLUDE_DIR})
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/fortran ${CMAKE_SOURCE_DIR}/libsrc)
