@@ -1,7 +1,7 @@
 !********************************************************************
 !   Copyright 1993, UCAR/Unidata
 !   See netcdf/COPYRIGHT file for copying and redistribution conditions.
-!   $Id: ftest.F,v 1.12 2009/04/02 18:29:20 dmh Exp $
+!   Russ Rew 1993
 !********************************************************************
 
 !
@@ -9,7 +9,7 @@
 !
       program ftest
 
-#include "netcdf.inc"
+      include 'netcdf.inc'
 
 !     name of first test cdf
       character*31 name

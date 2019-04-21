@@ -1,11 +1,11 @@
-C     This is part of the netCDF package.
-C     Copyright 2006 University Corporation for Atmospheric Research/Unidata.
-C     See COPYRIGHT file for conditions of use.
+C     This is part of the netCDF package. Copyright 2006-2019 University
+C     Corporation for Atmospheric Research/Unidata. See COPYRIGHT file
+C     for conditions of use.
 
 C     This program tests netCDF-4 variable functions from fortran,
 C     testing chunking and deflate settings.
 
-C     $Id: ftst_vars.F,v 1.19 2009/09/27 21:25:23 ed Exp $
+C     Ed Hartnett, 2009
 
       program ftst_vars
       implicit none
