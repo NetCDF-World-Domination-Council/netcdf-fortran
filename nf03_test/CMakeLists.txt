@@ -21,15 +21,6 @@ LIST(APPEND TESTS nf03_test)
 SET(nf03_test_SOURCES module_tests.F90 f03lib_f_interfaces.f90 test03_get.F test03_put.F nf03_error.F
   nf03_test.F test03_read.F test03_write.F util03.F f03lib.c)
 
-# This is the fortran v2 test. It depends on the utilities being built
-# to generate it's input file.
-IF(BUILD_V2)
-  LIST(APPEND check_PROGRAMS f03test)
-  LIST(APPEND TESTS f03test)
-  LIST(APPEND CLEANFILES test.nc)
-  SET(f03test_SOURCES module_tests.F90 f03test.F f03lib.c)
-ENDIF(BUILD_V2)
-
 LIST(APPEND CLEANFILES tests.mod)
 
 # test03_get.F and test03_put.f need to be distributed, so that the user
@@ -43,9 +34,6 @@ IF(BUILD_V2)
   LIST(APPEND CLEANFILES tst_f77_v2.nc)
   SET(tst03_f77_v2_SOURCES module_tests.F90 tst03_f77_v2.F)
 ENDIF(BUILD_V2)
-
-# Need a copy of ref_fills.nc for ftest
-execute_process(COMMAND cp ${CMAKE_SOURCE_DIR}/nf_test/ref_fills.nc ${CMAKE_CURRENT_BINARY_DIR}/fills.nc)
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/fortran ${CMAKE_SOURCE_DIR}/libsrc ${CMAKE_SOURCE_DIR}
   ${CMAKE_CPP_FLAGS} ${NETCDF_C_INCLUDE_DIR})

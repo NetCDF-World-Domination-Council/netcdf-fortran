@@ -53,6 +53,37 @@ tst_f90_SOURCES = tst_f90.f90
 .m4.F:
 	m4 $(M4FLAGS) $< >$@
 
+# If sed is present, generate these tests at build time. They are the
+# same tests as the F77 netCDF-4 tests above, but using the "use
+# netcdf4_f03" statement.
+if USE_SED
+
+# These test fortran codes will be created using sed.
+F03_TEST_CODES = f03test.F
+
+# The fortran codes will compile into these tests.
+F03_TESTS = f03test
+
+# Note that all these fortran programs are built at compile-time on
+# the user system.
+BUILT_SOURCES = $(F03_TEST_CODES)
+
+# Compile and run the generated tests.
+check_PROGRAMS += $(F03_TESTS)
+TESTS += $(F03_TESTS)
+
+# Each generated test code depends on its source.
+f03test_SOURCES = f03test.F
+
+# Use sed to generate the f03 versions of some test codes.
+f03test.F: ftest.F
+	$(SED) "s|include 'netcdf.inc'|USE netcdf4_f03|" $< > $@.tmp
+	$(SED) "s|test.nc|f03tst_test.nc|" $@.tmp > $@.tmp2
+	$(SED) "s|copy.nc|f03tst_copy.nc|" $@.tmp2 > $@
+
+endif #USE_SED
+
+
 # If valgrind is present on this machine, this will enable
 # check-valgrind target, which runs all tests with valgrind.
 @VALGRIND_CHECK_RULES@

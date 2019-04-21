@@ -45,10 +45,9 @@ module_tests.o
 
 # Did the user build the V2 F77 API? If so, run these tests.
 if BUILD_V2
-check_PROGRAMS += f03test tst03_f77_v2
-f03test_SOURCES = module_tests.F90 f03test.F f03lib.c
+check_PROGRAMS += tst03_f77_v2
 tst03_f77_v2_SOURCES = tst03_f77_v2.F
-TESTS += f03test tst03_f77_v2
+TESTS += tst03_f77_v2
 endif # BUILD_V2
 
 # If valgrind is present on this machine, this will enable
@@ -61,5 +60,5 @@ EXTRA_DIST = test03_get.F test03_put.F fills.cdl create_fills.sh	\
 CMakeLists.txt
 
 # Cleaning up files created during the process.
-CLEANFILES = scratch.nc test.nc copy.nc fills.nc tst_f77_v2.nc	\
-tests.mod test.nc ftst_*.nc f03tst_open_mem.nc temp.tmp
+CLEANFILES = scratch.nc fills.nc tst_f77_v2.nc tests.mod test.nc	\
+ftst_*.nc f03tst_open_mem.nc temp.tmp
