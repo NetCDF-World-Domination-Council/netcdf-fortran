@@ -129,7 +129,7 @@
 !
       subroutine tncacpy(iname, oname, nfails)
       character*31 iname, oname
-#include "netcdf.inc"
+      include 'netcdf.inc'
       integer ndims, nvars, natts, recdim, iret
       character*31 vname, attnam
       integer attype, attlen
@@ -319,7 +319,7 @@
 !
       subroutine tncadel (cdfname, nfails)
       character*31 cdfname
-#include "netcdf.inc"
+      include 'netcdf.inc'
       
       integer  bid, sid, lid, fid, did, cid, chid
       common /vars/bid, sid, lid, fid, did, cid, chid
@@ -372,7 +372,7 @@
 !     subroutine to test ncagt and ncagtc
 
       subroutine tncagt(cdfname, nfails)
-#include "netcdf.inc"
+      include 'netcdf.inc'
       character*31 cdfname
             
 !     maximum length of an attribute
@@ -534,7 +534,7 @@
 !     subroutine to test ncapt
 !
       subroutine tncapt (ncid, nfails)
-#include "netcdf.inc"
+      include 'netcdf.inc'
       integer ncid, iret
 
 ! attribute vectors
@@ -664,7 +664,7 @@
 !
 
       subroutine tncddef(ncid, nfails)
-#include "netcdf.inc"
+      include 'netcdf.inc'
       integer ncid
 
 !     sizes of dimensions of 'test.nc' and 'copy.nc'
@@ -699,7 +699,7 @@
 !     and ncainq
 !
       subroutine tncinq(cdfname, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       character*31 cdfname
 
 !     netCDF id
@@ -854,7 +854,7 @@
 !     ncendf
 
       subroutine tncredf(cdfname, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       character*31 cdfname
       character*31 attname(2,7)
       character*31 gattnam(2)
@@ -896,7 +896,7 @@
 !
 
       subroutine tncvdef(ncid, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       integer ncid
 
 !     function to define a netCDF variable
@@ -973,7 +973,7 @@
 !     subroutine to test ncvgt and ncvgtc
 !
       subroutine tncvgt(cdfname, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       character*31 cdfname
 
       integer ndims, times, lats, lons, levels, lenstr
@@ -1121,7 +1121,7 @@
 
       
       subroutine tncvgt1(cdfname, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       character*31 cdfname
 
       integer ncid, iret
@@ -1205,7 +1205,7 @@
 !     subroutine to test ncvpt and ncvptc
 !
       subroutine tncvpt(cdfname, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       character*31 cdfname
 
 !     size of dimensions
@@ -1325,7 +1325,7 @@
 
 
       subroutine tncvpt1(cdfname, nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       character*31 cdfname
 
 
@@ -1400,7 +1400,7 @@
 ! subroutine to test default fill values
 !
       subroutine tfills(nfails)
-#include "netcdf.inc"
+      include "netcdf.inc"
       integer ncid
       integer bid, sid, lid, fid, did
       integer ix(1)
