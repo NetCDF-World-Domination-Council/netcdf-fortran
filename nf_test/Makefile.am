@@ -53,7 +53,7 @@ tst_f90_SOURCES = tst_f90.f90
 if USE_SED
 
 # These test fortran codes will be created using sed.
-F03_TEST_CODES =
+F03_TEST_CODES = nf03_error.F
 
 # The fortran codes will compile into these tests.
 F03_TESTS =
@@ -89,6 +89,10 @@ tst03_f77_v2.F: tst_f77_v2.F
 	$(SED) "s|IMPLICIT NONE|USE tests|" $< > $@.tmp
 	$(SED) "s|include 'netcdf.inc'|implicit none|" $@.tmp > $@.tmp2
 	$(SED) "s|tst_f77_v2.nc|tst03_f77_v2.nc|" $@.tmp2 > $@
+
+nf03_error.F: nf_error.F
+	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
 
 endif #USE_SED
 
