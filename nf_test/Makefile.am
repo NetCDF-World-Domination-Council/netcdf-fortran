@@ -8,7 +8,11 @@
 # Parallel builds don't currently work in this directory.
 .NOTPARALLEL:
 
+# CPPFLAGS is used when compiling *.F.
 AM_CPPFLAGS = -I../fortran
+
+# FCFLAGS is used when compiling *.f90
+AM_FCFLAGS = -I../fortran
 
 # All tests need to link to fortran library.
 LDADD = ${top_builddir}/fortran/libnetcdff.la
