@@ -8,8 +8,7 @@
 # Parallel builds don't currently work in this directory.
 .NOTPARALLEL:
 
-AM_CPPFLAGS = -I$(top_builddir)/fortran
-AM_FCFLAGS = -I$(top_builddir)/fortran
+AM_CPPFLAGS = -I../fortran
 
 # All tests need to link to fortran library.
 LDADD = ${top_builddir}/fortran/libnetcdff.la
