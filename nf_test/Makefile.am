@@ -5,9 +5,6 @@
 
 # Ed Hartnett, Russ Rew, Dennis Heimbigner, Ward Fisher
 
-# Parallel builds don't currently work in this directory.
-.NOTPARALLEL:
-
 # CPPFLAGS is used when compiling *.F.
 AM_CPPFLAGS = -I../fortran
 
@@ -91,6 +88,10 @@ tst03_f77_v2.F: tst_f77_v2.F
 	$(SED) "s|tst_f77_v2.nc|tst03_f77_v2.nc|" $@.tmp2 > $@
 
 nf03_error.F: nf_error.F
+	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+
+nf03_test.F: nf_test.F
 	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
 	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
 
