@@ -78,21 +78,14 @@ noinst_LTLIBRARIES = libtests.la
 libtests_la_SOURCES = module_tests.F90
 tests.mod: module_tests.$(OBJEXT)
 BUILT_SOURCES += tests.mod
-noinst_HEADERS = tests.mod
-
-# Each generated test code depends on its source.
-
-# programs that "use tests" from the tests.mod module depend on it
-# being built first, needed for make -j
-#tests.mod.o: module_tests.$(OBJEXT)
 
 # Use sed to generate the f03 versions of some test codes.
-f03test.F: ftest.F tests.mod
+f03test.F: ftest.F
 	$(SED) "s|include 'netcdf.inc'|use netcdf_f03|" $< > $@.tmp
 	$(SED) "s|test.nc|f03tst_test.nc|" $@.tmp > $@.tmp2
 	$(SED) "s|copy.nc|f03tst_copy.nc|" $@.tmp2 > $@
 
-tst03_f77_v2.F: tst_f77_v2.F tests.mod
+tst03_f77_v2.F: tst_f77_v2.F
 	$(SED) "s|IMPLICIT NONE|USE tests|" $< > $@.tmp
 	$(SED) "s|include 'netcdf.inc'|implicit none|" $@.tmp > $@.tmp2
 	$(SED) "s|tst_f77_v2.nc|tst03_f77_v2.nc|" $@.tmp2 > $@
@@ -111,8 +104,8 @@ EXTRA_DIST = test_get.F test_put.F fills.cdl ref_fills.nc	\
 CMakeLists.txt
 
 # Cleaning up files created during the process.
-CLEANFILES = scratch.nc test.nc copy.nc tst_*.nc ftst_*.nc	\
-f90tst_*.nc temp.tmp fort.* $(F03_TEST_CODES)
+CLEANFILES = scratch.nc test.nc copy.nc tst*.nc ftst_*.nc f90tst_*.nc	\
+f03tst_*.nc temp.tmp fort.* *.mod $(F03_TEST_CODES)
 
 DISTCLEANFILES = fills.nc
 
