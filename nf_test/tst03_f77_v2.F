@@ -10,7 +10,7 @@ C     This program will bail out in the event of a netcdf error.
 C     Ed Hartnett, 2009
 
       PROGRAM tst_f77_v2
-      USE netcdf4_f03
+      USE tests
       implicit none
 
       INTEGER n_dim,x_dim,y_dim,z_dim
