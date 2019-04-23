@@ -527,7 +527,7 @@
 
 
       integer function char2type(letter)
-      implicit          none
+      implicit none
 #include "tests.inc"
       character*1       letter
 
@@ -550,9 +550,9 @@
 
 
       subroutine init_dims(digit)
-      implicit          none
-      character*1       digit(NDIMS)
+      implicit none
 #include "tests.inc"
+      character*1       digit(NDIMS)
 
       integer   dimid           !/* index of dimension */
       do 1, dimid = 1, NDIMS
@@ -567,9 +567,9 @@
 
 
       subroutine init_gatts(type_letter)
-      implicit          none
-      character*1       type_letter(NTYPES)
+      implicit none
 #include "tests.inc"
+      character*1       type_letter(NTYPES)
 
       integer   attid
       integer   char2type
@@ -584,9 +584,9 @@
 
       integer function prod(nn, sp)
       implicit none
+#include "tests.inc"
       integer   nn
       integer   sp(MAX_RANK)
-#include "tests.inc"
 
       integer   i
 
@@ -709,8 +709,8 @@
 !     define dims defined by global variables */
       subroutine def_dims(ncid)
       implicit none
-      integer         ncid
 #include "tests.inc"
+      integer         ncid
 
       integer         err       !/* status */
       integer         i
@@ -1202,9 +1202,9 @@
 
       FUNCTION ATT_TYPE(J,VID)
       implicit none
+#include "tests.inc"
       INTEGER J
       INTEGER VID
-#include "tests.inc"
       IF (VID .LT. 1) THEN
          ATT_TYPE = GATT_TYPE(J)
       ELSE
