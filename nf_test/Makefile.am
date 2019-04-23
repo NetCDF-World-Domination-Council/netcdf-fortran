@@ -98,6 +98,14 @@ nf03_test.F: nf_test.F
 	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
 	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
 
+test03_read.F: test_read.F
+	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+
+test03_write.F: test_write.F
+	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+
 endif #USE_SED
 
 
