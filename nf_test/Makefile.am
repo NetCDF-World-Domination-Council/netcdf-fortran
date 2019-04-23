@@ -106,6 +106,18 @@ test03_write.F: test_write.F
 	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
 	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
 
+util03.F: util.F
+	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+
+test03_put.F: test_put.F
+	$(SED) "s|implicit        none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+
+test03_get.F: test_get.F
+	$(SED) "s|implicit        none|USE tests|" $< > $@.tmp
+	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+
 endif #USE_SED
 
 
