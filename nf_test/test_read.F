@@ -1,8 +1,6 @@
-C*********************************************************************
-C   Copyright 1996, UCAR/Unidata
-C   See netcdf/COPYRIGHT file for copying and redistribution conditions.
-C   $Id: test_read.F,v 1.13 2006/09/25 20:09:26 ed Exp $
-C*********************************************************************
+C     Copyright 1996, UCAR/Unidata
+C     See netcdf/COPYRIGHT file for copying and redistribution conditions.
+C     $Id: test_read.F,v 1.13 2006/09/25 20:09:26 ed Exp $
 
 C Test nf_strerror.
 C    Try on a bad error status.

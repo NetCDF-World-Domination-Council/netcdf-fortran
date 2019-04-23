@@ -5,6 +5,9 @@
 
 # Ed Hartnett, Russ Rew, Dennis Heimbigner, Ward Fisher
 
+# Turn off parallel builds in this directory.
+.NOTPARALLEL:
+
 # CPPFLAGS is used when compiling *.F.
 AM_CPPFLAGS = -I../fortran
 
