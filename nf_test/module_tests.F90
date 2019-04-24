@@ -251,4 +251,6 @@
       REAL(RK8), EXTERNAL :: EXTERNAL_MIN
       REAL(RK8), EXTERNAL :: EXTERNAL_MAX
 
+      INTEGER                   FILE_CMODE
+
       End Module tests

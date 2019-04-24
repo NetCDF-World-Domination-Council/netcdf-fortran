@@ -79,6 +79,15 @@ libtests_la_SOURCES = module_tests.F90
 tests.mod: module_tests.$(OBJEXT)
 BUILT_SOURCES += tests.mod
 
+F03_TEST_CODES += nf03_error.F nf03_test.F test03_read.F	\
+test03_write.F
+check_PROGRAMS += nf03_test
+TESTS += nf03_test
+nf03_test_SOURCES = test03_get.F test03_put.F nf03_error.F	\
+nf03_test.F test03_read.F test03_write.F util03.F f03lib.c	\
+f03lib_f_interfaces.f90
+LDADD += libtests.la
+
 # Use sed to generate the f03 versions of some test codes.
 f03test.F: ftest.F
 	$(SED) "s|include 'netcdf.inc'|use netcdf_f03|" $< > $@.tmp
@@ -106,17 +115,9 @@ test03_write.F: test_write.F
 	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
 	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
 
-util03.F: util.F
-	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
-	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
-
-test03_put.F: test_put.F
-	$(SED) "s|implicit        none|USE tests|" $< > $@.tmp
-	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
-
-test03_get.F: test_get.F
-	$(SED) "s|implicit        none|USE tests|" $< > $@.tmp
-	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
+# util03.F: util.F
+# 	$(SED) "s|implicit none|USE tests|" $< > $@.tmp
+# 	$(SED) "s|#include \"tests.inc\"|      implicit none|" $@.tmp > $@
 
 endif #USE_SED
 

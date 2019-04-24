@@ -10,7 +10,7 @@ C
 C ensure hash value within range for internal TYPE
 C
         function hash_text(type, rank, index, itype)
-        implicit        none
+        implicit none
 #include "tests.inc"
         integer type
         integer rank
@@ -31,7 +31,7 @@ C
 C ensure hash value within range for internal TYPE
 C
         function hash_int1(type, rank, index, itype)
-        implicit        none
+        implicit none
 #include "tests.inc"
         integer type
         integer rank
@@ -53,7 +53,7 @@ C
 C ensure hash value within range for internal TYPE
 C
         function hash_int2(type, rank, index, itype)
-        implicit        none
+        implicit none
 #include "tests.inc"
         integer type
         integer rank
@@ -74,7 +74,7 @@ C
 C ensure hash value within range for internal TYPE
 C
         function hash_int(type, rank, index, itype)
-        implicit        none
+        implicit none
 #include "tests.inc"
         integer type
         integer rank
@@ -94,7 +94,7 @@ C
 C ensure hash value within range for internal TYPE
 C
         function hash_real(type, rank, index, itype)
-        implicit        none
+        implicit none
 #include "tests.inc"
         integer type
         integer rank
@@ -114,7 +114,7 @@ C
 C ensure hash value within range for internal TYPE
 C
         function hash_double(type, rank, index, itype)
-        implicit        none
+        implicit none
 #include "tests.inc"
         integer type
         integer rank
