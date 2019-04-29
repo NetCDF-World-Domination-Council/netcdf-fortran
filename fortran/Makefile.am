@@ -5,8 +5,6 @@
 
 # Ed Hartnett, Russ Rew, Dennis Heimbigner, Ward Fisher
 
-AM_FCFLAGS = -I.
-
 # This is what we are building: the netCDF fortran library, containing
 # the F77 and the F90 APIs.
 lib_LTLIBRARIES = libnetcdff.la
