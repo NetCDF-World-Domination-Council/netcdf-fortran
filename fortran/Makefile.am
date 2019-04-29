@@ -9,10 +9,16 @@
 # the F77 and the F90 APIs.
 lib_LTLIBRARIES = libnetcdff.la
 
+# Add the F77 API and the F90 API.
+libnetcdff_la_LIBADD = ../libsrc/libnetcdff77.la libnetcdfm.la
+
 # These linker flags specify libtool version info.
 # See http://www.gnu.org/software/libtool/manual/libtool.html#Libtool-versioning
 # for information regarding incrementing `-version-info`.
 libnetcdff_la_LDFLAGS = -version-info 6:1:1
+
+# This will get set below.
+libnetcdff_la_SOURCES =
 
 # These f90 codes are used for either netCDF classic or netCDF-4 F90
 # API.
@@ -27,19 +33,7 @@ netcdf4_func.f90 netcdf4_overloads.f90 netcdf4_file.f90		\
 netcdf4_eightbyte.f90 netcdf4_variables.f90
 
 # Build these uninstalled convenience libraries.
-noinst_LTLIBRARIES = libtypeSizes.la libnetcdf_nc_data.la	\
-libnetcdf_nf_data.la libnetcdf_nc_interfaces.la			\
-libnetcdf_nf_interfaces.la libnetcdfm.la libnetcdf_f03.la
-
-# These are the ource for the F77 API.
-libnetcdff_la_SOURCES = nf_attio.F90 nf_control.F90 nf_dim.f90		\
-nf_misc.f90 nf_genatt.f90 nf_geninq.f90 nf_genvar.f90 nf_vario.F90	\
-nf_var1io.F90 nf_varaio.F90 nf_varmio.F90 nf_varsio.F90
-
-# Add nf_logging to F77 API if needed.
-if USE_LOGGING
-libnetcdff_la_SOURCES += nf_logging.F90
-endif USE_LOGGING
+noinst_LTLIBRARIES = libtypeSizes.la libnetcdfm.la
 
 # Different source for the netcdf.mod is used for netcdf classic
 # vs. netcdf4.
@@ -64,46 +58,16 @@ endif # USE_NETCDF4
 
 # Each convenience library depends on its source.
 libtypeSizes_la_SOURCES = typeSizes.f90
-libnetcdf_nc_data_la_SOURCES = module_netcdf_nc_data.F90
-libnetcdf_nf_data_la_SOURCES = module_netcdf_nf_data.F90
-libnetcdf_nc_interfaces_la_SOURCES = module_netcdf_nc_interfaces.f90
-libnetcdf_nf_interfaces_la_SOURCES = module_netcdf_nf_interfaces.F90
-libnetcdf_f03_la_SOURCES = module_netcdf_f03.f90
 
 # Each mod file depends on the .o file.
 typesizes.mod: typeSizes.$(OBJEXT)
-netcdf_nc_data.mod: module_netcdf_nc_data.$(OBJEXT)
-netcdf_nf_data.mod: module_netcdf_nf_data.$(OBJEXT)
-netcdf_nc_interfaces.mod: module_netcdf_nc_interfaces.$(OBJEXT)
-netcdf_nf_interfaces.mod: module_netcdf_nf_interfaces.$(OBJEXT)
-netcdf_f03.mod: module_netcdf_f03.$(OBJEXT)
-
-# Some mods are dependant on other mods in this dir.
-module_netcdf_nf_data.$(OBJEXT): netcdf_nc_data.mod
-module_netcdf_nc_interfaces.$(OBJEXT): netcdf_nc_data.mod
-module_netcdf_nf_interfaces.$(OBJEXT): netcdf_nf_data.mod
-module_netcdf_f03.$(OBJEXT): netcdf_nf_data.mod netcdf_nf_interfaces.mod
 
 # Mod files are built and then installed as headers. Order is
 # significant in this list of modfiles.
-MODFILES = typesizes.mod netcdf_nc_data.mod netcdf_nf_data.mod	\
-netcdf_nc_interfaces.mod netcdf_nf_interfaces.mod
+MODFILES = typesizes.mod
 
 # Add our convenience libraries to the netCDF fortran library.
-libnetcdff_la_LIBADD = libtypeSizes.la libnetcdf_nc_data.la	\
-libnetcdf_nf_data.la libnetcdf_nc_interfaces.la			\
-libnetcdf_nf_interfaces.la libnetcdfm.la libnetcdf_f03.la
-
-# Add the V2 F77 API.
-if BUILD_V2
-noinst_LTLIBRARIES += libnetcdf_fortv2_c_interfaces.la
-libnetcdf_fortv2_c_interfaces_la_SOURCES = module_netcdf_fortv2_c_interfaces.f90
-netcdf_fortv2_c_interfaces.mod: module_netcdf_fortv2_c_interfaces.$(OBJEXT)
-module_netcdf_fortv2_c_interfaces.$(OBJEXT): netcdf_nc_interfaces.mod
-MODFILES += netcdf_fortv2_c_interfaces.mod
-libnetcdff_la_SOURCES += nf_v2compat.c nf_fortv2.f90
-libnetcdff_la_LIBADD += libnetcdf_fortv2_c_interfaces.la
-endif # BUILD_V2
+libnetcdff_la_LIBADD += libtypeSizes.la
 
 # Are we building netCDF-4?
 if USE_NETCDF4
@@ -126,9 +90,10 @@ netcdf4_nf_interfaces.mod: module_netcdf4_nf_interfaces.$(OBJEXT)
 netcdf4_f03.mod: module_netcdf4_f03.$(OBJEXT)
 
 # Some mods are dependant on other mods in this dir.
-module_netcdf4_nc_interfaces.$(OBJEXT): netcdf_nc_interfaces.mod
+#module_netcdf4_nc_interfaces.$(OBJEXT): netcdf_nc_interfaces.mod
 module_netcdf4_nf_interfaces.$(OBJEXT): netcdf4_nc_interfaces.mod
-module_netcdf4_f03.$(OBJEXT): netcdf_nf_data.mod netcdf_nf_interfaces.mod netcdf4_nf_interfaces.mod
+#module_netcdf4_f03.$(OBJEXT): netcdf_nf_data.mod netcdf_nf_interfaces.mod netcdf4_nf_interfaces.mod
+module_netcdf4_f03.$(OBJEXT): netcdf4_nf_interfaces.mod
 
 # Add the netcdf4 mod files to the list.
 MODFILES += netcdf4_nc_interfaces.mod netcdf4_nf_interfaces.mod	\
