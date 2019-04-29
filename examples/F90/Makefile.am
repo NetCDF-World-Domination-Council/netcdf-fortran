@@ -8,13 +8,9 @@
 # Turn off parallel builds in this directory.
 .NOTPARALLEL:
 
-AM_FCFLAGS = -I$(top_srcdir)/fortran ${AM_CPPFLAGS}
-AM_FCFLAGS += $(FCFLAGS_f90)
-AM_FCFLAGS += @MOD_FLAG@$(top_builddir)/fortran
-AM_FFLAGS = ${AM_FCFLAGS}
+AM_FCFLAGS = -I$(top_srcdir)/fortran
 
-AM_LDFLAGS = ${top_builddir}/fortran/libnetcdff.la -lnetcdf
-LDADD = ${top_builddir}/fortran/libnetcdff.la -lnetcdf
+LDADD = ${top_builddir}/fortran/libnetcdff.la
 
 # These are the netCDF classic example programs.
 check_PROGRAMS = simple_xy_wr simple_xy_rd sfc_pres_temp_wr	\
