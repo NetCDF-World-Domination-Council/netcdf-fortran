@@ -10,7 +10,7 @@
 # Ed Hartnett, Russ Rew, Dennis Heimbigner, Ward Fisher
 
 # FFLAGS is used when compiling *.F
-AM_FFLAGS = -I$(top_builddir)/libsrc
+AM_FFLAGS = -I$(top_builddir)/libsrc -I$(top_builddir)/fortran
 
 # FCFLAGS is used when compiling *.F90.
 AM_FCFLAGS = $(AM_FFLAGS)

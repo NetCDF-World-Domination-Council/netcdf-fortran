@@ -6,7 +6,7 @@
 
 # Ed Hartnett, 2019
 
-AM_CPPFLAGS = -I../fortran
+AM_CPPFLAGS = -I../libsrc -I../fortran
 
 # All tests need to link to fortran library.
 LDADD = ${top_builddir}/fortran/libnetcdff.la
