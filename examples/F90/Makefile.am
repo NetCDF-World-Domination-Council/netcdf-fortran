@@ -8,8 +8,10 @@
 # Turn off parallel builds in this directory.
 .NOTPARALLEL:
 
-AM_FCFLAGS = -I$(top_srcdir)/fortran
+# Find the netcdf.mod file.
+AM_FCFLAGS = -I$(top_builddir)/fortran
 
+# Link to the netCDF fortran library.
 LDADD = ${top_builddir}/fortran/libnetcdff.la
 
 # These are the netCDF classic example programs.

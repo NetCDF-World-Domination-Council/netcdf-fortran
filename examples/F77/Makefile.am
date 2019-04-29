@@ -5,7 +5,7 @@
 
 # Ed Hartnett, Russ Rew, Dennis Heimbigner, Ward Fisher
 
-AM_FFLAGS = -I$(top_srcdir)/libsrc -I$(top_srcdir)/fortran
+AM_FFLAGS = -I$(top_builddir)/libsrc
 
 LDADD = ${top_builddir}/fortran/libnetcdff.la
 
