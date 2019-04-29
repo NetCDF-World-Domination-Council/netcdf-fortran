@@ -38,6 +38,11 @@ libnetcdff_la_SOURCES = nf_attio.F90 nf_control.F90 nf_dim.f90		\
 nf_misc.f90 nf_genatt.f90 nf_geninq.f90 nf_genvar.f90 nf_vario.F90	\
 nf_var1io.F90 nf_varaio.F90 nf_varmio.F90 nf_varsio.F90
 
+# Add nf_logging to F77 API if needed.
+if USE_LOGGING
+libnetcdff_la_SOURCES += nf_logging.F90
+endif USE_LOGGING
+
 # Different source for the netcdf.mod is used for netcdf classic
 # vs. netcdf4.
 if USE_NETCDF4
