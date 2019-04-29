@@ -61,6 +61,42 @@ libnetcdff77_la_SOURCES += nf_v2compat.c nf_fortv2.f90
 libnetcdff77_la_LIBADD += libnetcdf_fortv2_c_interfaces.la
 endif # BUILD_V2
 
+# Are we building netCDF-4? If so, add the extra netCDF-4 F77 API
+# functions.
+if USE_NETCDF4
+
+# Add additional source files to the library to support netCDF4.
+libnetcdff77_la_SOURCES += nf_lib.c nf_nc4.f90
+
+# Add these uninstalled convenience libraries for netcdf-4.
+noinst_LTLIBRARIES += libnetcdf4_nc_interfaces.la	\
+libnetcdf4_nf_interfaces.la libnetcdf4_f03.la
+
+# Each convenience library depends on its source.
+libnetcdf4_nc_interfaces_la_SOURCES = module_netcdf4_nc_interfaces.f90
+libnetcdf4_nf_interfaces_la_SOURCES = module_netcdf4_nf_interfaces.F90
+libnetcdf4_f03_la_SOURCES = module_netcdf4_f03.f90
+
+# Each mod file depends on the .o file.
+netcdf4_nc_interfaces.mod: module_netcdf4_nc_interfaces.$(OBJEXT)
+netcdf4_nf_interfaces.mod: module_netcdf4_nf_interfaces.$(OBJEXT)
+netcdf4_f03.mod: module_netcdf4_f03.$(OBJEXT)
+
+# Some mods are dependant on other mods in this dir.
+module_netcdf4_nc_interfaces.$(OBJEXT): netcdf_nc_interfaces.mod
+module_netcdf4_nf_interfaces.$(OBJEXT): netcdf4_nc_interfaces.mod
+module_netcdf4_f03.$(OBJEXT): netcdf_nf_data.mod netcdf_nf_interfaces.mod netcdf4_nf_interfaces.mod
+
+# Add the netcdf4 mod files to the list.
+MODFILES += netcdf4_nc_interfaces.mod netcdf4_nf_interfaces.mod	\
+netcdf4_f03.mod
+
+# Add the netcdf4 convenience libraries to the netcdf fortran library.
+libnetcdff77_la_LIBADD += libnetcdf4_nc_interfaces.la	\
+libnetcdf4_nf_interfaces.la libnetcdf4_f03.la
+
+endif # USE_NETCDF4
+
 # The netcdf.inc file is built on the user machine, and installed as
 # a header.
 BUILT_SOURCES = netcdf.inc
