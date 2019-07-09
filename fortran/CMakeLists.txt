@@ -4,89 +4,27 @@ SET(CMAKE_VERBOSE_MAKEFILE OFF)
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 INCLUDE_DIRECTORIES("." "${NC4F_BINARY_DIR}/libsrc")
+LINK_DIRECTORIES("." "${NC4F_BINARY_DIR}/libsrc")
 
 SET(netcdff_SOURCES
-  typeSizes.f90 module_netcdf_nc_data.F90 module_netcdf_nc_interfaces.f90
-  module_netcdf_nf_data.F90 module_netcdf_nf_interfaces.F90
-  module_netcdf_f03.f90
-  nf_attio.F90 nf_control.F90 nf_dim.f90 nf_misc.f90
-  nf_genatt.f90 nf_geninq.f90 nf_genvar.f90
-  nf_vario.F90 nf_var1io.F90 nf_varaio.F90
-  nf_varmio.F90 nf_varsio.F90
+  typeSizes.f90
 )
-
-IF (USE_NETCDF4)
-  SET(netcdff_SOURCES ${netcdff_SOURCES}
-    module_netcdf4_nc_interfaces.f90
-    module_netcdf4_nf_interfaces.F90 module_netcdf4_f03.f90
-    nf_lib.c nf_nc4.f90
-    )
-ENDIF(USE_NETCDF4)
-
-IF (${USE_LOGGING})
-  SET(netcdff_SOURCES ${netcdff_SOURCES}
-    nf_logging.F90
-    )
-ENDIF(${USE_LOGGING})
-
-# SET(netcdff_DEPENDENCIES
-#   netcdf_attributes.f90 netcdf_constants.f90 netcdf_dims.f90
-#   netcdf_expanded.f90 netcdf_externals.f90 netcdf_file.f90
-#   netcdf_overloads.f90 netcdf_text_variables.f90 netcdf_variables.f90
-#   netcdf_visibility.f90 netcdf_eightbyte.f90
-#   )
 
 IF (${USE_NETCDF4})
   SET(netcdff_SOURCES ${netcdff_SOURCES}
     netcdf4.f90
     )
-  # SET(netcdff_DEPENDENCIES ${netcdff_DEPENDENCIES}
-  #   netcdf4_func.f90 netcdf4_externals.f90 netcdf4_visibility.f90
-  #   netcdf4.f90 netcdf4_eightbyte.f90
-  #   netcdf4_variables.f90 netcdf4_file.f90
-  #   )
 ELSE ()
   SET(netcdff_SOURCES ${netcdff_SOURCES}
     netcdf.f90 netcdf3_file.f90
     )
 ENDIF(${USE_NETCDF4})
 
-if (${BUILD_V2})
-  SET(netcdff_SOURCES ${netcdff_SOURCES}
-    nf_v2compat.c module_netcdf_fortv2_c_interfaces.f90 nf_fortv2.f90
-    )
-endif (${BUILD_V2})
-
-if (${BUILD_F03})
-  SET(LCHEADERS
-    netcdf_nc_data.mod netcdf_nc_interfaces.mod netcdf_nf_data.mod
-    netcdf_nf_interfaces.mod netcdf_f03.mod
-    )
-  if (${BUILD_V2})
-    SET(LCHEADERS ${LCHEADERS}
-      netcdf_fortv2_c_interfaces.mod
-      )
-  endif (${BUILD_V2})
-  if (${USE_NETCDF4})
-    SET(LCHEADERS ${LCHEADERS}
-      netcdf4_nc_interfaces.mod netcdf4_nf_interfaces.mod netcdf4_f03.mod
-      )
-  endif (${USE_NETCDF4})
-endif (${BUILD_F03})
-
 # These are always used
 SET(LCCOMMON typesizes.mod netcdf.mod)
 SET(COMMONHEADERS ${LCHEADERS} ${LCCOMMON})
 
-# SET(netcdff_DEPENDENCIES ${netcdff_DEPENDENCIES} ${COMMONHEADERS} )
 SET(BUILT_SOURCES ${LCHEADERS} ${LCCOMMON})
-
-# A macro for appending file2 to file1
-MACRO(APPENDFILE file1 file2)
-  file(READ ${file2} file2_bytes)
-  file(APPEND ${file1} ${file2_bytes})
-ENDMACRO(APPENDFILE file1 file2)
-
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/libsrc)
 
@@ -99,6 +37,8 @@ IF (BUILD_SHARED_LIBS)
     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
   ENDIF()
 ENDIF()
+
+SET(netcdff_LIBS ${netcdff_LIBS} netcdff77)
 
 # This is what we are building: a convenience library of Fortran 2003 functions.
 # This just builds SHARED, even though STATIC is also specified

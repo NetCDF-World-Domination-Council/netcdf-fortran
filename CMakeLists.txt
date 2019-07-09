@@ -691,19 +691,6 @@ ELSE()
   SET(NF_DOUBLEPRECISION_IS_C_DOUBLE "1")
 ENDIF(ENABLE_FORTRAN_TYPE_CHECKS)
 
-# Create libsrc/nfconfig.inc (don't need nfconfig1.inc temporary file used with autoconf)
-# configure_file("${NC4F_SOURCE_DIR}/libsrc/nfconfig.in.cmake"
-#   "${NC4F_BINARY_DIR}/libsrc/nfconfig.inc")
-# # Create config.h file
-# configure_file("${NC4F_SOURCE_DIR}/config.h.cmake.in"
-#   "${NC4F_BINARY_DIR}/config.h")
-
-# # For now, just copy a stub file
-# FILE(COPY "${NC4F_SOURCE_DIR}/nf-config.cmake.in"
-#   DESTINATION "${NC4F_BINARY_DIR}"
-#   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
-# FILE(RENAME "${NC4F_BINARY_DIR}/nf-config.cmake.in" "${NC4F_BINARY_DIR}/nf-config")
-
 # make sure previous two files get cleaned up...
 SET_DIRECTORY_PROPERTIES (DIRECTORY PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${netcdf-fortran_BINARY_DIR}/config.h ${netcdf-fortran_BINARY_DIR}/nf-config)
 
@@ -836,9 +823,8 @@ INCLUDE_DIRECTORIES(${NC4F_BINARY_DIR})
 # End autotools-style checks for config.h
 
 # Recurse into other subdirectories.
-ADD_SUBDIRECTORY(fortran)
-
 ADD_SUBDIRECTORY(libsrc)
+ADD_SUBDIRECTORY(fortran)
 
 IF(ENABLE_TESTS)
   ADD_SUBDIRECTORY(nf_test)
